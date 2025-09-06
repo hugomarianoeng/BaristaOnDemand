@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Sitting - Conectando Cafés e Baristas em Galway</title>
+    <meta name="description" content="Encontre cobertura de última hora ou trabalho flexível. Bar Sitting conecta cafés e baristas qualificados em Galway.">
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="header-nav">
+                <a href="/" class="header-logo">
+                    <img src="assets/logo.png" alt="Bar Sitting" onerror="this.style.display='none'">
+                    <span>Bar Sitting</span>
+                </a>
+                
+                <button class="header-menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+                    ☰
+                </button>
+
+                <ul class="header-menu" id="headerMenu">
+                    <li><a href="#how-it-works" class="nav-link">Como Funciona</a></li>
+                    <li><a href="#for-cafes" class="nav-link">Para Cafés</a></li>
+                    <li><a href="#for-baristas" class="nav-link">Para Baristas</a></li>
+                    <li><a href="#about" class="nav-link">Sobre</a></li>
+                </ul>
+
+                <div class="header-actions">
+                    <button class="btn btn-ghost" onclick="showLoginModal()">Entrar</button>
+                    <button class="btn btn-primary" onclick="showRegisterModal()">Começar</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge badge-success hero-badge">
+                    Conectando a Cultura do Café de Galway
+                </div>
+                
+                <h1 class="heading heading-xl hero-title">
+                    <span class="text-white">Encontre Seu</span>
+                    <br>
+                    <span class="text-gradient">Próximo Barista</span>
+                    <br>
+                    <span class="text-white">ou Oportunidade</span>
+                </h1>
+                
+                <p class="text-lg text-gray-300 hero-description">
+                    Conectamos cafés que precisam de cobertura de última hora com baristas qualificados 
+                    prontos para trabalhar. Flexibilidade para todos, qualidade garantida.
+                </p>
+                
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg" onclick="showRegisterModal()">
+                        Começar Agora
+                        <span class="btn-icon">→</span>
+                    </button>
+                    <button class="btn btn-ghost btn-lg" onclick="showLoginModal()">
+                        Já Tenho Conta
+                    </button>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Cafés Parceiros</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Baristas Ativos</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Turnos Cobertos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <img src="assets/hero-cafe.jpg" alt="Café acolhedor em Galway" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading heading-lg">Como Funciona</h2>
+                <p class="text-lg text-gray-600">
+                    Processo simples e eficiente para conectar cafés e baristas
+                </p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <span class="step-number">1</span>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Cadastre-se</h3>
+                        <p class="step-description">
+                            Crie sua conta como café ou barista. Processo rápido e gratuito.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <span class="step-number">2</span>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Encontre ou Publique</h3>
+                        <p class="step-description">
+                            Cafés publicam turnos disponíveis. Baristas encontram oportunidades.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <span class="step-number">3</span>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Conecte e Trabalhe</h3>
+                        <p class="step-description">
+                            Confirmação instantânea. Trabalhe com flexibilidade e qualidade.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Cafes Section -->
+    <section id="for-cafes" class="section section-gray">
+        <div class="container">
+            <div class="feature-grid">
+                <div class="feature-content">
+                    <div class="badge badge-primary">Para Cafés</div>
+                    <h2 class="heading heading-lg">
+                        Nunca Mais Fique Sem Cobertura
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Encontre baristas qualificados rapidamente quando precisar de cobertura 
+                        de última hora ou para turnos regulares.
+                    </p>
+                    
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Baristas verificados e experientes</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Resposta rápida para emergências</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Sistema de avaliações confiável</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Pagamento seguro integrado</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-primary btn-lg" onclick="showRegisterModal()">
+                        Cadastrar Café
+                    </button>
+                </div>
+                
+                <div class="feature-image">
+                    <img src="assets/cafe-owner.jpg" alt="Proprietário de café" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Baristas Section -->
+    <section id="for-baristas" class="section">
+        <div class="container">
+            <div class="feature-grid feature-grid-reverse">
+                <div class="feature-image">
+                    <img src="assets/barista-working.jpg" alt="Barista trabalhando" onerror="this.style.display='none'">
+                </div>
+                
+                <div class="feature-content">
+                    <div class="badge badge-success">Para Baristas</div>
+                    <h2 class="heading heading-lg">
+                        Trabalhe Quando e Onde Quiser
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Encontre oportunidades flexíveis em cafés de qualidade por toda Galway. 
+                        Construa sua reputação e ganhe mais.
+                    </p>
+                    
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Horários flexíveis que se adaptam à sua vida</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Pagamento justo e pontual</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Trabalhe em diferentes cafés e ambientes</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">✓</span>
+                            <span>Construa sua rede profissional</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-success btn-lg" onclick="showRegisterModal()">
+                        Cadastrar como Barista
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section section-gray">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading heading-lg">Sobre o Bar Sitting</h2>
+                <p class="text-lg text-gray-600">
+                    Conectando a vibrante cultura do café de Galway
+                </p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="text-lg">
+                        Galway é conhecida por sua rica cultura do café e comunidade acolhedora. 
+                        O Bar Sitting nasceu da necessidade de conectar os talentosos baristas da cidade 
+                        com os cafés que valorizam qualidade e flexibilidade.
+                    </p>
+                    <p class="text-lg">
+                        Nossa plataforma facilita essas conexões, criando oportunidades para todos: 
+                        cafés conseguem a cobertura que precisam, baristas encontram trabalho flexível, 
+                        e a comunidade do café de Galway se fortalece.
+                    </p>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">Fundado</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Focado em Galway</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Suporte</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section section-primary">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="heading heading-lg text-white">
+                    Pronto para Começar?
+                </h2>
+                <p class="text-lg text-gray-200">
+                    Junte-se à comunidade que está revolucionando o trabalho em cafés em Galway
+                </p>
+                <div class="cta-actions">
+                    <button class="btn btn-white btn-lg" onclick="showRegisterModal()">
+                        Cadastre-se Gratuitamente
+                    </button>
+                    <button class="btn btn-ghost-white btn-lg" onclick="showLoginModal()">
+                        Fazer Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo">
+                        <img src="assets/logo.png" alt="Bar Sitting" onerror="this.style.display='none'">
+                        <span>Bar Sitting</span>
+                    </a>
+                    <p class="footer-description">
+                        Conectando cafés e baristas em Galway para um futuro mais flexível e próspero.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Plataforma</h4>
+                        <ul class="footer-list">
+                            <li><a href="#how-it-works" class="footer-link">Como Funciona</a></li>
+                            <li><a href="#for-cafes" class="footer-link">Para Cafés</a></li>
+                            <li><a href="#for-baristas" class="footer-link">Para Baristas</a></li>
+                            <li><a href="#" class="footer-link">Preços</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Suporte</h4>
+                        <ul class="footer-list">
+                            <li><a href="#" class="footer-link">Central de Ajuda</a></li>
+                            <li><a href="#" class="footer-link">Contato</a></li>
+                            <li><a href="#" class="footer-link">FAQ</a></li>
+                            <li><a href="#" class="footer-link">Status</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Legal</h4>
+                        <ul class="footer-list">
+                            <li><a href="#" class="footer-link">Termos de Uso</a></li>
+                            <li><a href="#" class="footer-link">Privacidade</a></li>
+                            <li><a href="#" class="footer-link">Cookies</a></li>
+                            <li><a href="#" class="footer-link">Licenças</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 Bar Sitting. Todos os direitos reservados.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="Facebook">📘</a>
+                    <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                    <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Entrar</h2>
+                <button class="modal-close" onclick="closeModal('loginModal')" aria-label="Fechar">×</button>
+            </div>
+            
+            <form class="modal-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail" class="form-label">Email</label>
+                    <input type="email" id="loginEmail" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword" class="form-label">Senha</label>
+                    <input type="password" id="loginPassword" name="password" class="form-input" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+                </div>
+                
+                <div class="modal-footer">
+                    <p>Não tem conta? <a href="#" onclick="closeModal('loginModal'); showRegisterModal();">Cadastre-se</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Cadastrar</h2>
+                <button class="modal-close" onclick="closeModal('registerModal')" aria-label="Fechar">×</button>
+            </div>
+            
+            <form class="modal-form" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName" class="form-label">Nome Completo</label>
+                    <input type="text" id="registerName" name="name" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail" class="form-label">Email</label>
+                    <input type="email" id="registerEmail" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPhone" class="form-label">Telefone</label>
+                    <input type="tel" id="registerPhone" name="phone" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword" class="form-label">Senha</label>
+                    <input type="password" id="registerPassword" name="password" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userType" class="form-label">Eu sou:</label>
+                    <select id="userType" name="userType" class="form-select" required>
+                        <option value="">Selecione uma opção</option>
+                        <option value="cafe">Proprietário de Café</option>
+                        <option value="barista">Barista</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-full">Cadastrar</button>
+                </div>
+                
+                <div class="modal-footer">
+                    <p>Já tem conta? <a href="#" onclick="closeModal('registerModal'); showLoginModal();">Entre aqui</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Estabelecimento - Bar Sitting</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="header-nav">
+                <a href="/" class="header-logo">
+                    <img src="assets/logo.png" alt="Bar Sitting" onerror="this.style.display='none'">
+                    <span>Bar Sitting</span>
+                </a>
+                
+                <div class="header-actions">
+                    <span class="user-greeting" id="userGreeting">Carregando...</span>
+                    <button class="btn btn-ghost" onclick="showProfileModal()">Perfil</button>
+                    <button class="btn btn-primary" onclick="handleLogout()">Sair</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Dashboard do Estabelecimento</h1>
+                <p>Gerencie seus jobs e encontre baristas qualificados</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-content">
+                        <h3 id="totalJobs">0</h3>
+                        <p>Jobs Publicados</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3 id="totalApplications">0</h3>
+                        <p>Aplicações Recebidas</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <h3 id="establishmentRating">0.0</h3>
+                        <p>Sua Avaliação</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <h3 id="totalHires">0</h3>
+                        <p>Contratações</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary btn-lg" onclick="showCreateJobModal()">
+                    + Criar Novo Job
+                </button>
+                <button class="btn btn-secondary btn-lg" onclick="showBaristasModal()">
+                    Ver Baristas Disponíveis
+                </button>
+            </div>
+
+            <!-- Jobs Section -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Meus Jobs</h2>
+                    <div class="filters">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">Todos os Status</option>
+                            <option value="open">Aberto</option>
+                            <option value="closed">Fechado</option>
+                            <option value="completed">Completado</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="loadMyJobs()">Filtrar</button>
+                    </div>
+                </div>
+
+                <div id="myJobsContainer" class="jobs-grid">
+                    <div class="loading">Carregando seus jobs...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Perfil do Estabelecimento</h2>
+                <span class="close" onclick="closeModal('profileModal')">×</span>
+            </div>
+            <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="profileName">Nome do Contato</label>
+                        <input type="text" id="profileName" name="name" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePhone">Telefone</label>
+                        <input type="tel" id="profilePhone" name="phone" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label for="profileBusinessName">Nome do Negócio</label>
+                        <input type="text" id="profileBusinessName" name="business_name" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileBusinessType">Tipo de Negócio</label>
+                        <select id="profileBusinessType" name="business_type" class="input-field">
+                            <option value="cafe">Café</option>
+                            <option value="restaurant">Restaurante</option>
+                            <option value="bar">Bar</option>
+                            <option value="hotel">Hotel</option>
+                            <option value="other">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileAddress">Endereço</label>
+                    <input type="text" id="profileAddress" name="address" class="input-field" required>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="profileCity">Cidade</label>
+                        <input type="text" id="profileCity" name="city" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePostalCode">Código Postal</label>
+                        <input type="text" id="profilePostalCode" name="postal_code" class="input-field">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileWebsite">Website</label>
+                    <input type="url" id="profileWebsite" name="website" class="input-field" placeholder="https://...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileDescription">Descrição do Estabelecimento</label>
+                    <textarea id="profileDescription" name="description" class="input-field" rows="4" placeholder="Descreva seu estabelecimento..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Atualizar Perfil</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Job Modal -->
+    <div id="createJobModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Criar Novo Job</h2>
+                <span class="close" onclick="closeModal('createJobModal')">×</span>
+            </div>
+            <form id="createJobForm" onsubmit="handleCreateJob(event)">
+                <div class="form-group">
+                    <label for="jobTitle">Título do Job</label>
+                    <input type="text" id="jobTitle" name="title" class="input-field" required placeholder="Ex: Barista para turno da manhã">
+                </div>
+                
+                <div class="form-group">
+                    <label for="jobDescription">Descrição</label>
+                    <textarea id="jobDescription" name="description" class="input-field" rows="4" required placeholder="Descreva as responsabilidades e requisitos..."></textarea>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="jobDate">Data Necessária</label>
+                        <input type="date" id="jobDate" name="date_needed" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobHourlyRate">Taxa por Hora (€)</label>
+                        <input type="number" id="jobHourlyRate" name="hourly_rate" class="input-field" required min="0" step="0.01">
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="jobStartTime">Horário de Início</label>
+                        <input type="time" id="jobStartTime" name="start_time" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobEndTime">Horário de Término</label>
+                        <input type="time" id="jobEndTime" name="end_time" class="input-field" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jobSkills">Habilidades Necessárias (opcional)</label>
+                    <input type="text" id="jobSkills" name="skills_required" class="input-field" placeholder="Ex: Espresso, Latte Art, Experiência com máquina específica...">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Criar Job</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Baristas Modal -->
+    <div id="baristasModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Baristas Disponíveis</h2>
+                <span class="close" onclick="closeModal('baristasModal')">×</span>
+            </div>
+            <div class="filters">
+                <input type="text" id="baristasSkillsFilter" placeholder="Filtrar por habilidades..." class="filter-input">
+                <input type="number" id="baristasRatingFilter" placeholder="Avaliação mínima" class="filter-input" min="0" max="5" step="0.1">
+                <button class="btn btn-primary" onclick="loadBaristas()">Buscar</button>
+            </div>
+            <div id="baristasContainer" class="baristas-grid">
+                <div class="loading">Carregando baristas...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Applications Modal -->
+    <div id="applicationsModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Aplicações do Job</h2>
+                <span class="close" onclick="closeModal('applicationsModal')">×</span>
+            </div>
+            <div id="applicationsContainer" class="applications-grid">
+                <div class="loading">Carregando aplicações...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/dashboard-establishment.js"></script>
+</body>
+</html>
