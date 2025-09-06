@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Barista - Bar Sitting</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="header-nav">
+                <a href="/" class="header-logo">
+                    <img src="assets/logo.png" alt="Bar Sitting" onerror="this.style.display='none'">
+                    <span>Bar Sitting</span>
+                </a>
+                
+                <div class="header-actions">
+                    <span class="user-greeting" id="userGreeting">Carregando...</span>
+                    <button class="btn btn-ghost" onclick="showProfileModal()">Perfil</button>
+                    <button class="btn btn-primary" onclick="handleLogout()">Sair</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Dashboard do Barista</h1>
+                <p>Encontre oportunidades de trabalho flexível</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">💼</div>
+                    <div class="stat-content">
+                        <h3 id="totalApplications">0</h3>
+                        <p>Aplicações Enviadas</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <h3 id="userRating">0.0</h3>
+                        <p>Sua Avaliação</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <h3 id="totalJobs">0</h3>
+                        <p>Jobs Completados</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-content">
+                        <h3 id="hourlyRate">€0</h3>
+                        <p>Taxa por Hora</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jobs Section -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Jobs Disponíveis</h2>
+                    <div class="filters">
+                        <select id="cityFilter" class="filter-select">
+                            <option value="Galway">Galway</option>
+                            <option value="Dublin">Dublin</option>
+                            <option value="Cork">Cork</option>
+                        </select>
+                        <input type="text" id="skillsFilter" placeholder="Filtrar por habilidades..." class="filter-input">
+                        <button class="btn btn-primary" onclick="loadJobs()">Buscar</button>
+                    </div>
+                </div>
+
+                <div id="jobsContainer" class="jobs-grid">
+                    <div class="loading">Carregando jobs...</div>
+                </div>
+
+                <div class="pagination" id="jobsPagination"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Meu Perfil</h2>
+                <span class="close" onclick="closeModal('profileModal')">×</span>
+            </div>
+            <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="profileName">Nome</label>
+                        <input type="text" id="profileName" name="name" class="input-field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePhone">Telefone</label>
+                        <input type="tel" id="profilePhone" name="phone" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label for="profileExperience">Anos de Experiência</label>
+                        <input type="number" id="profileExperience" name="experience_years" class="input-field" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="profileHourlyRate">Taxa por Hora (€)</label>
+                        <input type="number" id="profileHourlyRate" name="hourly_rate" class="input-field" min="0" step="0.01">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileSkills">Habilidades (separadas por vírgula)</label>
+                    <input type="text" id="profileSkills" name="skills" class="input-field" placeholder="Espresso, Latte Art, Atendimento ao Cliente...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileAvailability">Disponibilidade</label>
+                    <textarea id="profileAvailability" name="availability" class="input-field" rows="3" placeholder="Ex: Segunda a Sexta, 9h às 17h"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileBio">Biografia</label>
+                    <textarea id="profileBio" name="bio" class="input-field" rows="4" placeholder="Conte um pouco sobre sua experiência..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileCertifications">Certificações</label>
+                    <textarea id="profileCertifications" name="certifications" class="input-field" rows="2" placeholder="Certificações relevantes..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileLanguages">Idiomas</label>
+                    <input type="text" id="profileLanguages" name="languages" class="input-field" placeholder="Português, Inglês, Espanhol...">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Atualizar Perfil</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Job Application Modal -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Aplicar para Job</h2>
+                <span class="close" onclick="closeModal('applicationModal')">×</span>
+            </div>
+            <div id="jobDetails" class="job-details"></div>
+            <form id="applicationForm" onsubmit="handleJobApplication(event)">
+                <div class="form-group">
+                    <label for="applicationMessage">Mensagem (opcional)</label>
+                    <textarea id="applicationMessage" name="message" class="input-field" rows="4" placeholder="Por que você é perfeito para este job?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Enviar Aplicação</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/dashboard-barista.js"></script>
+</body>
+</html>

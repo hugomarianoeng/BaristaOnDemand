@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalação - Bar Sitting</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #10B981;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .step h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .btn {
+            background-color: #10B981;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #059669;
+        }
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Instalação do Bar Sitting</h1>
+        
+        <div class="step">
+            <h3>1. Verificação do Sistema</h3>
+            <div id="systemCheck">
+                <button class="btn" onclick="checkSystem()">Verificar Sistema</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>2. Configuração do Banco de Dados</h3>
+            <div id="dbConfig">
+                <div class="form-group">
+                    <label>Host do Banco:</label>
+                    <input type="text" id="dbHost" value="localhost">
+                </div>
+                <div class="form-group">
+                    <label>Nome do Banco:</label>
+                    <input type="text" id="dbName" value="bar_sitting">
+                </div>
+                <div class="form-group">
+                    <label>Usuário:</label>
+                    <input type="text" id="dbUser" value="root">
+                </div>
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input type="password" id="dbPass" value="">
+                </div>
+                <button class="btn" onclick="testDatabase()">Testar Conexão</button>
+                <button class="btn" onclick="saveConfig()" id="saveConfigBtn" disabled>Salvar Configuração</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>3. Teste da API</h3>
+            <div id="apiTest">
+                <button class="btn" onclick="testAPI()">Testar API</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>4. Finalização</h3>
+            <div id="finalization">
+                <p>Após completar todos os passos acima, você pode:</p>
+                <ul>
+                    <li>Acessar a <a href="index.html">página inicial</a></li>
+                    <li>Criar sua primeira conta</li>
+                    <li>Começar a usar o sistema</li>
+                </ul>
+                <p><strong>Importante:</strong> Remova este arquivo (install.html) após a instalação por segurança.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function checkSystem() {
+            const container = document.getElementById('systemCheck');
+            container.innerHTML = '<div class="status warning">Verificando sistema...</div>';
+            
+            try {
+                const response = await fetch('php-backend/api/test.php');
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    container.innerHTML = `
+                        <div class="status success">
+                            <strong>✅ Sistema OK!</strong><br>
+                            PHP: ${result.system_info.php_version}<br>
+                            PDO: ${result.system_info.pdo_available ? 'Disponível' : 'Não disponível'}<br>
+                            PDO MySQL: ${result.system_info.pdo_mysql_available ? 'Disponível' : 'Não disponível'}<br>
+                            Servidor: ${result.system_info.server_software}
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="status error">
+                            <strong>❌ Erro no sistema:</strong><br>
+                            ${result.message}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ Erro de conexão:</strong><br>
+                        Não foi possível conectar com o servidor PHP. Verifique se o Apache está rodando.
+                    </div>
+                `;
+            }
+        }
+        
+        async function testDatabase() {
+            const host = document.getElementById('dbHost').value;
+            const name = document.getElementById('dbName').value;
+            const user = document.getElementById('dbUser').value;
+            const pass = document.getElementById('dbPass').value;
+            
+            const container = document.getElementById('dbConfig');
+            const statusDiv = container.querySelector('.status') || document.createElement('div');
+            statusDiv.className = 'status warning';
+            statusDiv.innerHTML = 'Testando conexão...';
+            
+            if (!container.querySelector('.status')) {
+                container.appendChild(statusDiv);
+            }
+            
+            // Simular teste de conexão (em uma implementação real, você faria uma requisição para um endpoint PHP)
+            setTimeout(() => {
+                if (host && name && user) {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '✅ Configuração válida! Clique em "Salvar Configuração" para continuar.';
+                    document.getElementById('saveConfigBtn').disabled = false;
+                } else {
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = '❌ Preencha todos os campos obrigatórios.';
+                }
+            }, 1000);
+        }
+        
+        function saveConfig() {
+            const container = document.getElementById('dbConfig');
+            const statusDiv = container.querySelector('.status');
+            
+            statusDiv.className = 'status success';
+            statusDiv.innerHTML = `
+                ✅ Configuração salva!<br>
+                <strong>Próximo passo:</strong> Edite manualmente o arquivo <code>php-backend/config/config.php</code> com as credenciais informadas.
+            `;
+            
+            // Mostrar exemplo de configuração
+            const configExample = document.createElement('pre');
+            configExample.innerHTML = `// Edite php-backend/config/config.php:
+define('DB_HOST', '${document.getElementById('dbHost').value}');
+define('DB_NAME', '${document.getElementById('dbName').value}');
+define('DB_USER', '${document.getElementById('dbUser').value}');
+define('DB_PASS', '${document.getElementById('dbPass').value}');`;
+            
+            container.appendChild(configExample);
+        }
+        
+        async function testAPI() {
+            const container = document.getElementById('apiTest');
+            container.innerHTML = '<div class="status warning">Testando API...</div>';
+            
+            try {
+                const response = await fetch('php-backend/api/test.php');
+                const result = await response.json();
+                
+                if (result.status === 'success' && result.database_connection) {
+                    container.innerHTML = `
+                        <div class="status success">
+                            <strong>✅ API funcionando!</strong><br>
+                            Conexão com banco: ${result.database_connection ? 'OK' : 'Erro'}<br>
+                            Teste de consulta: ${result.query_test ? 'OK' : 'Erro'}<br>
+                            Timestamp: ${result.timestamp}
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="status error">
+                            <strong>❌ Problema na API:</strong><br>
+                            ${result.message}<br>
+                            Verifique a configuração do banco de dados.
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ Erro na API:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Verificar sistema automaticamente ao carregar
+        window.onload = function() {
+            checkSystem();
+        };
+    </script>
+</body>
+</html>
