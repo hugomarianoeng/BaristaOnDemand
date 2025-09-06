@@ -1,0 +1,40 @@
+# Arquivo .gitignore para o projeto Bar Sitting
+
+# Arquivos temporários do Umbler
+temporary.html
+temp.html
+*.tmp
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Arquivos de configuração local
+.env
+.env.local
+
+# Cache
+.cache/
+*.cache
+
+# Arquivos do editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node modules (se usar futuramente)
+node_modules/
+npm-debug.log*
+
+# Arquivos de build (se usar futuramente)
+dist/
+build/
